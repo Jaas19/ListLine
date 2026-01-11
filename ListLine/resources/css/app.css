@@ -1,0 +1,503 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+
+
+/*CSS viejo*/
+@layer base {
+
+html {
+    height: 100%;
+}
+body{
+    height: 100%;
+    margin: 0;
+}
+
+.bgImg{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(../images/Fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    z-index: -1;
+}
+
+h1{
+    width: 100%;
+    text-align: center;
+    color:rgb(175, 17, 48);
+}
+
+td {
+    border-style: solid;
+    border-left: 1px;
+    border-color: white;
+}
+
+.profilePicture {
+    display:grid;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    box-sizing: border-box;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100px;
+    height: 100px;
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 0px;
+    border-color: white;
+}
+
+.profilePictureImg {
+    height: 100px;
+    border-radius: 50%;
+}
+
+.logo{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+
+.logo2{
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+}
+
+.messageBoxHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.messageBox {
+    background-color: rgb(175, 17, 48);
+    height: 100%;
+    width: 350px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    border: 1px white solid;
+    box-sizing: border-box;
+}
+
+.closeMessageBoxButton {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.messageImg {
+    max-height: 30vh;
+    cursor: pointer;
+}
+
+.darkBg {
+    background-color: black;
+    opacity: 50%;
+}
+
+.imgFull {
+    max-height: 90vh;
+    max-width: 90vw;
+    position: fixed;
+    top: 5vh;
+}
+
+h1 {
+    text-shadow:
+                -1px -1px 0 white,
+                1px -1px 0 white,
+                -1px 1px 0 white,
+                1px 1px 0 white,
+                -1.5px 0px 0 white,
+                1.5px 0px 0 white,
+                0px -1.5px 0 white,
+                0px 1.5px 0 white;
+}
+
+.message {
+    border: 1px white solid;
+    color: white;
+    display: grid;
+    justify-content: top;
+    padding: 10px;
+    gap: 10px;
+    margin: -1px;
+    grid: 1fr / 60px 1fr;
+    cursor: pointer;
+}
+
+.messageProfile {
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.pd {
+    padding: 10px;
+}
+
+.borderRed {
+    border: rgb(175, 17, 48) 1px solid;
+}
+
+.noBorder {
+    border: 0;
+}
+
+h1 {
+    margin-top: 70px;
+    text-align: center;
+    text-wrap: pretty;
+}
+
+.flexCenter {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}
+
+.marginTop {
+    margin-top: 10px;
+}
+
+.messageBody {
+    display: flex;
+    flex-flow: column;
+    width: 70vw;
+    gap: 5px;
+    padding: 10px;
+    align-items: center;
+}
+
+.displayMessagesButton {
+    position: fixed;
+    top: 3%;
+    right: 2%;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    background-size: cover;
+    border-radius: 50%;
+    padding: 10px;
+    border: 0px;
+    cursor: pointer;
+}
+
+.displayMenuButton {
+    position: fixed;
+    top: 3%;
+    left: 2%;
+    width: 40px;
+    height: 40px;
+    background-image: url(images/menu.png);
+    background-color: transparent;
+    background-size: cover;
+    border-radius: 50%;
+    padding: 10px;
+    border: 0px;
+    cursor: pointer;
+}
+
+.notificationsImg {
+    background-image: url(images/notifications.png);
+}
+
+.noNotificationsImg {
+    background-image: url(images/no-notifications.png);
+}
+
+.sendMessageButton {
+    background-color: white;
+    padding: 5px;
+}
+
+.messageContentInput {
+    height: 300px;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.messageForm {
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    width: 70vw;
+    gap: 10px;
+    padding: 20px;
+    min-width: 300px;
+}
+
+textarea {
+    resize:none;
+}
+
+.main {
+    width: 100%;
+}
+
+.menu {
+    position: fixed;
+    gap: 10px;
+    display: flex;
+    flex-flow: column;
+    flex-direction: column;
+    width: 350px;
+    height: 100%;
+    border-color: white;
+    border-style: solid;
+    border-width: 1px;
+    background-color: rgb(175, 17, 48);
+    align-items: center;
+}
+
+.reportTable {
+    background-color: rgb(175, 17, 48);
+    color: white;
+    text-align: center;
+    max-width: 70vw;
+}
+
+.notification {
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    position: fixed;
+    flex-flow: column;
+    top: 10%;
+    left: 50%;
+    margin-left: -160px;;
+    color: white;
+    width: 320px;
+    background-color: rgb(175, 17, 48);
+    padding-bottom: 20px;
+}
+
+.notificationHeader {
+    margin: 0;
+    padding: 10px;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    color:rgb(175, 17, 48);
+}
+
+.notificationMessage {
+    padding: 10px;
+    color:white;
+    margin-bottom: 0;
+}
+
+.notificationButtonClose {
+    font-size: 15px;
+    color: rgb(175, 17, 48);
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px;
+    height: 11px;
+    width: 11px;
+    margin-right: 13px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.fileInput {
+    width: 80px;
+}
+
+.notificationButton {
+    align-self: center;
+}
+
+.center3 {
+    height: 100%;
+    width: 100%;
+    display:grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper{
+    display: grid;
+    height: 500px;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    grid-auto-flow: column;
+}
+
+td {
+    background-color: white;
+    color: rgb(175, 17, 48);
+    padding: 0 2px;
+}
+
+th {
+    padding: 0 2px;
+}
+
+.wrapper2{
+    box-sizing: border-box;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.flexRow{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+}
+
+.whiteBackground{
+    background-color: white;
+    border-radius: 20px;
+    border-width: 0px;
+    padding: 5px;
+}
+
+.center{
+    height: 100%;
+    width: 100%;
+    display:grid;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.center2{
+    justify-content: center;
+    align-items: center;
+}
+
+.grid{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.formInput{
+    outline-color: rgb(175, 17, 48);
+    color: rgb(175, 17, 48);
+    outline-width: 2px;
+    outline-style: solid;
+    border-width: 0;
+    padding: 5px;
+    box-shadow: 3px 3px rgb(202, 202, 202);
+}
+
+.tableInput{
+    margin: 0;
+    width: 6rem;
+}
+
+.tableButton{
+    color: rgb(175, 17, 48);
+    background-color: white;
+    border: 0;
+    cursor: pointer;
+}
+
+.color{
+    color: rgb(175, 17, 48);
+}
+
+.color2{
+    color: white;
+}
+
+.bg{
+    background-color: rgb(175, 17, 48);
+}
+
+.bg2{
+    background-color: white;
+}
+
+label{
+    margin-top: -15px;
+    margin-bottom: -25px;
+    color: rgb(175, 17, 48);
+}
+
+input {
+    border: 0;
+    outline: 0;
+}
+
+.menuOption{
+    color: white;
+    width: 100%;
+    height: 50px;
+    background-color: rgb(175, 17, 48);
+    border-width: 1px 0px;
+    border-color: white;
+    border-style: solid;
+    box-sizing: border-box;
+    margin-bottom: -11px;
+    cursor: pointer;
+}
+
+.pannel{
+    background-color: white;
+    opacity: 0.95;
+    height: fit-content;
+    /*
+    border-radius: 20px;
+    border-color: crimson;
+    border-width: 2px;
+    border-style: solid;
+    */
+    box-shadow: 3px 3px 30px rgb(0, 0, 0);
+    padding: 20px
+}
+
+.button{
+    border-color: rgb(175, 17, 48);
+    color: white;
+    height: 40px;
+    width: 100%;
+    background-color: rgb(175, 17, 48);
+    border-style: solid;
+    padding: 10px;
+    box-shadow: 2px 2px rgb(202, 202, 202);
+    cursor: pointer;
+}
+}

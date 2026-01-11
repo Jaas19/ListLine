@@ -1,0 +1,2 @@
+->with('program')->with('totalType')->with('user')
+->with(['program', 'totalType', 'user'])

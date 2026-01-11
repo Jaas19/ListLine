@@ -1,0 +1,1 @@
+<h1 class="text-4xl">¡Te damos la bienvenida, {{ $user->role == 'admin' ? 'admin' : 'usuario' }} {{ $user->name }}!</h1>
