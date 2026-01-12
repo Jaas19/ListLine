@@ -9,6 +9,12 @@ use App\Services\AuthService;
 use App\Services\AuthServiceInterface;
 use App\Services\MessageService;
 use App\Services\MessageServiceInterface;
+use App\Services\ProgramServiceInterface;
+use App\Services\ProgramService;
+use App\Services\TotalTypeServiceInterface;
+use App\Services\TotalTypeService;
+use App\Services\TotalServiceInterface;
+use App\Services\TotalService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,16 +24,28 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            UserServiceInterface::class, 
+            UserServiceInterface::class,
             UserService::class
         );
         $this->app->bind(
-            AuthServiceInterface::class, 
+            AuthServiceInterface::class,
             AuthService::class
         );
         $this->app->bind(
-            MessageServiceInterface::class, 
+            MessageServiceInterface::class,
             MessageService::class
+        );
+        $this->app->bind(
+            ProgramServiceInterface::class,
+            ProgramService::class
+        );
+        $this->app->bind(
+            TotalTypeServiceInterface::class,
+            TotalTypeService::class
+        );
+        $this->app->bind(
+            TotalServiceInterface::class,
+            TotalService::class
         );
     }
 

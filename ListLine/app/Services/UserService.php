@@ -25,6 +25,11 @@ class UserService implements UserServiceInterface{
         }
         return User::all();
     }
+
+    public function basicUsersListing(){
+        return User::where("role", "user")->get(["name", "id"]);
+    }
+
     public function registerUser($data){
         $rules = [
             'email' => ['required', 'email', 'unique:users'],

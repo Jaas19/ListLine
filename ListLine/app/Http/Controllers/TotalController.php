@@ -1,14 +1,53 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Services\MessageServiceInterface;
+use App\Services\ProgramServiceInterface;
+use App\Services\TotalTypeServiceInterface;
+use App\Services\TotalServiceInterface;
 use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
-class TotalController extends Controller{
+class TotalController extends Controller
+{
+    protected $messageService;
+    protected $programService;
+    protected $totalTypeService;
+    protected $totalService;
+    protected $userService;
+    public function __construct(
+    MessageServiceInterface $messageService,
+    ProgramServiceInterface $programService,
+    TotalServiceInterface $totalService,
+    TotalTypeServiceInterface $totalTypeService,
+    UserServiceInterface $userService)
+    {
+        $this->messageService = $messageService;
+        $this->programService = $programService;
+        $this->totalTypeService = $totalTypeService;
+        $this->totalService = $totalService;
+        $this->userService = $userService;
+    }
+
     public function pdf(){
         return Pdf::loadView("total.pdf", [
             'totals' => []
         ])->stream();
+    }
+
+    public function create(){
+        $messages = $this->messageService->listMessages();
+        $admin = Auth::user()->role == "admin";
+        $user = Auth::user();
+        $programs = $this->programService->listPrograms();
+        $types = $this->totalTypeService->listTotalTypes();
+        $users = $this->userService->basicUsersListing();
+        return view("total.create", compact("admin", "user", "messages", "users", "programs", "types"));
+    }
+
+    public function store(Request $request){
+        return $this-> totalService -> storeTotals($request);
     }
 }

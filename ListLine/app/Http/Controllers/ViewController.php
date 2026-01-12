@@ -9,7 +9,7 @@ class ViewController extends Controller
 {
     protected $bannedViews = ["report.create", "user.create"];
 
-    protected $allowedViews = ["message.create", "message.index", 
+    protected $allowedViews = ["message.create", "message.index",
                                 'message.detail', "dashboard.index", "report.index"];
 
     public function handleView($view){
@@ -35,7 +35,7 @@ class ViewController extends Controller
     }
 
     /*
-    if($this->allowView($view) !== $subview 
+    if($this->allowView($view) !== $subview
     || Auth::user()->role === 'admin'){
         return view("$view.$subview");
     } else {

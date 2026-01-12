@@ -21,6 +21,8 @@ Route::post('/user/create', [AuthController::class, "store"])->name("user.store"
 // Totals
 
 Route::get('/total/pdf', [TotalController::class, "pdf"])->name('total.pdf');
+Route::get('/total/create', [TotalController::class, "create"])->name('total.create');
+Route::post('/total/store', [TotalController::class, "store"])->name('total.store');
 
 // Messages
 

@@ -8,7 +8,7 @@
 </head>
 <body>
     <!--class="hidden"-->
-    <div class="bgImg -z-10" style="filter: brightness(125%); background-image: url({{ asset('images/Fondo.jpg') }})"></div>
+    <div class="bgImg -z-10" style="filter: brightness(150%); background-image: url({{ asset('images/Fondo.jpg') }})"></div>
     {{ $slot }}
 
     <script src="{{ asset("js/menu.js") }}"></script>
