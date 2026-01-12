@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2025 a las 16:33:02
+-- Tiempo de generación: 12-01-2026 a las 05:24:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -115,9 +115,18 @@ CREATE TABLE `messages` (
   `receiver_id` bigint(20) UNSIGNED NOT NULL,
   `header` varchar(255) NOT NULL,
   `body` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `messages`
+--
+
+INSERT INTO `messages` (`id`, `transmissor_id`, `receiver_id`, `header`, `body`, `image`, `created_at`, `updated_at`) VALUES
+(1, 5, 4, 'Saludos', 'Saludos', '', '2026-01-12 03:36:27', '2026-01-12 03:36:27'),
+(2, 5, 4, 'Saludos', 'Saludos', 'messages/K6gOXGhWniu3tbWzDeXLZUBJOTfawDoXjaBf1N9U.png', '2026-01-12 04:16:51', '2026-01-12 04:16:51');
 
 -- --------------------------------------------------------
 
@@ -166,6 +175,18 @@ CREATE TABLE `programs` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `programs`
+--
+
+INSERT INTO `programs` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Gato', 1, NULL, NULL),
+(2, 'Premier Plus', 1, NULL, NULL),
+(3, 'Venta Activa', 1, NULL, NULL),
+(4, 'Maxplay', 1, NULL, NULL),
+(5, 'Maticlot', 1, NULL, NULL),
+(6, 'Parley', 1, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -186,8 +207,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('n4WZ91Ipk2B3Y9W0xJ1aJ7dBMyNmQZpMilvyDqZp', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiREZGdmZNTnI3azV5dGNBeDFlcG5UNTBhWXdkTU5BWmVWRjM3b09JYSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czoxMDoiYXV0aC5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1763359652),
-('tqjw92Aw1f0uH3XnTokw4CXFsr2LyAheXNzLs8bC', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiS3JIWHF6WlVBaExjeGZsaGhCSHVjZ0xWeWx2aUJIWVRmVlJrQTdIWCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tZXNzYWdlL2RldGFpbCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NDt9', 1763390998);
+('kuguQwILgmhM1NBsg1NIwWeAlndQQUQBsy3bc7ML', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQkJRMWVDaE1CV1BOUGhQN1RNZTZ2TmFvRTFjSDdzTnl2MkZOVzVDaSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czoxMDoiYXV0aC5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjQ7fQ==', 1768191793);
 
 -- --------------------------------------------------------
 
@@ -200,11 +220,78 @@ CREATE TABLE `totals` (
   `type_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `program_id` bigint(20) UNSIGNED NOT NULL,
-  `day` datetime NOT NULL,
+  `day` date NOT NULL,
   `amount` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `totals`
+--
+
+INSERT INTO `totals` (`id`, `type_id`, `user_id`, `program_id`, `day`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 1, 5, 1, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(2, 2, 5, 1, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(3, 3, 5, 1, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(4, 4, 5, 1, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(5, 5, 5, 1, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(6, 1, 5, 2, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(7, 2, 5, 2, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(8, 3, 5, 2, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(9, 4, 5, 2, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(10, 5, 5, 2, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(11, 1, 5, 3, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(12, 2, 5, 3, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(13, 3, 5, 3, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(14, 4, 5, 3, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(15, 5, 5, 3, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(16, 1, 5, 4, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(17, 2, 5, 4, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(18, 3, 5, 4, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(19, 4, 5, 4, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(20, 5, 5, 4, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(21, 1, 5, 5, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(22, 2, 5, 5, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(23, 3, 5, 5, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(24, 4, 5, 5, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(25, 5, 5, 5, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(26, 1, 5, 6, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(27, 2, 5, 6, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(28, 3, 5, 6, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(29, 4, 5, 6, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(30, 5, 5, 6, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(31, 1, 6, 1, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(32, 2, 6, 1, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(33, 3, 6, 1, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(34, 4, 6, 1, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(35, 5, 6, 1, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(36, 1, 6, 2, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(37, 2, 6, 2, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(38, 3, 6, 2, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(39, 4, 6, 2, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(40, 5, 6, 2, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(41, 1, 6, 3, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(42, 2, 6, 3, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(43, 3, 6, 3, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(44, 4, 6, 3, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(45, 5, 6, 3, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(46, 1, 6, 4, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(47, 2, 6, 4, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(48, 3, 6, 4, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(49, 4, 6, 4, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(50, 5, 6, 4, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(51, 1, 6, 5, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(52, 2, 6, 5, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(53, 3, 6, 5, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(54, 4, 6, 5, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(55, 5, 6, 5, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(56, 1, 6, 6, '2026-01-11', 100, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(57, 2, 6, 6, '2026-01-11', 10, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(58, 3, 6, 6, '2026-01-11', 40, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(59, 4, 6, 6, '2026-01-11', 60, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(60, 5, 6, 6, '2026-01-11', 1, '2026-01-12 04:29:26', '2026-01-12 04:29:26'),
+(61, 3, 6, 1, '2026-01-12', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -219,6 +306,17 @@ CREATE TABLE `total_types` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `total_types`
+--
+
+INSERT INTO `total_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Venta', 1, NULL, NULL),
+(2, 'Premios', 1, NULL, NULL),
+(3, 'Comisión', 1, NULL, NULL),
+(4, 'Saldo', 1, NULL, NULL),
+(5, 'Ganadores', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -243,7 +341,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `photo`, `password`, `status`, `created_at`, `updated_at`) VALUES
-(4, 'Bulmara', 'bulmara@gmail.com', 'admin', 'public/profilePictures/KU3xP9D4IkyfXak1GiJvTigHU7svOGPBFskFNfJg.png', '$2y$12$3WhXJZoWZAhZz7bvyrqmOO66fe.GxNOdrh98Q8OzzwY4EWdC3muaq', 1, '2025-11-05 02:56:46', '2025-11-05 02:56:46');
+(4, 'Bulmara', 'bulmara@gmail.com', 'admin', 'public/profilePictures/KU3xP9D4IkyfXak1GiJvTigHU7svOGPBFskFNfJg.png', '$2y$12$3WhXJZoWZAhZz7bvyrqmOO66fe.GxNOdrh98Q8OzzwY4EWdC3muaq', 1, '2025-11-05 02:56:46', '2025-11-05 02:56:46'),
+(5, 'Tauro', 'Tauro@gmail.com', 'user', 'profilePictures/tgqthT6z8VqoayCV0UZgCWAR9mGQcqIO0bdvAvqi.png', '$2y$12$BGMFjJ0cjrYPykFNaktbYOV7dkxGZ5tZq7tPEVfyHwcYRgdBdGaJG', 1, '2026-01-12 00:29:52', '2026-01-12 00:29:52'),
+(6, 'La Victoria', 'Victoria@gmail.com', 'user', 'profilePictures/XD2C7aZVTjU78DnvWKTUqPICPMYAsQe6TVkUvQKG.png', '$2y$12$GYHjqf4TXzWFkEZxSZamiOcMAW2Wz9XCeZ9V9sqZ0rWU/b82rdgZ.', 1, '2026-01-12 00:30:19', '2026-01-12 00:30:19');
 
 --
 -- Índices para tablas volcadas
@@ -357,7 +457,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT de la tabla `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -369,25 +469,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `programs`
 --
 ALTER TABLE `programs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `totals`
 --
 ALTER TABLE `totals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `total_types`
 --
 ALTER TABLE `total_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
