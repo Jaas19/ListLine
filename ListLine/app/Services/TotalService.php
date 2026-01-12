@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Services\TotalServiceInterface;
 use App\Services\AuthService;
 use App\Models\Total;
+use Illuminate\Support\Facades\Auth;
 
 
 class TotalService implements TotalServiceInterface {
@@ -57,9 +58,17 @@ class TotalService implements TotalServiceInterface {
         $starting_date = $request->starting_date ?? now()->toDateString();
         $ending_date = $request->ending_date ?? $starting_date;
 
-        $listsIds = $request->input('lists');
-        if(empty($listIds)){
-            $listsIds = $this->userService->getUsersId();
+        $user = Auth::user();
+        $admin = $user->role == "admin";
+        unset($user->password);
+
+        if($admin){
+            $listsIds = $request->input('lists');
+            if(empty($listsIds)){
+                $listsIds = $this->userService->getUsersId();
+            }
+        } else {
+            $listsIds = [$user->id];
         }
 
         $typesIds = $request->input('types');

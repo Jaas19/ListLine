@@ -12,9 +12,10 @@ class Message extends Model
         "transmissor_id",
         "receiver_id",
         "header",
-        "body"
+        "body",
+        'image',
     ];
-    
+
     public function transmissor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'transmissor_id', 'id');

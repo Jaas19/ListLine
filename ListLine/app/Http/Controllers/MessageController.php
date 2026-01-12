@@ -17,10 +17,10 @@ class MessageController extends Controller{
     }
     public function index(Request $request){
         $user = Auth::user();
-        $message = $this->messageService->getMessage(5);
-        $messages = $this->messageService->listMessages();
-        $admin = $user->role == "admin";
-        if(Auth::id() == $message->receiver_id){
+        $message = $this->messageService->getMessage($request->id);
+        if($message && Auth::id() == $message->receiver_id){
+            $messages = $this->messageService->listMessages();
+            $admin = $user->role == "admin";
             return view('message.index', compact("user", "messages", "message", "admin"));
         } else {
             return redirect("/", );

@@ -5,11 +5,11 @@
     </div>
 
     @foreach ($messages as $message)
-    <div class="message">
-        <img src="{{ $message->transmissor->photo ? asset('storage/' . $message->transmissor->photo) : asset('images/ListLine.png') }}" 
+    <a class="message" href="{{ route('message.index', ['id' => $message->id]) }}">
+        <img src="{{ $message->transmissor->photo ? asset('storage/' . $message->transmissor->photo) : asset('images/ListLine.png') }}"
         class="messageProfile">
         {{ $message->header }}
-    </div>
+    </a>
     @endforeach
 
 </nav>

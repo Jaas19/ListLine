@@ -11,7 +11,7 @@ class MessageService implements MessageServiceInterface{
     }
 
     public function getMessage($id){
-        return Message::where("id", "=", $id)->first();
+        return Message::where("id", "=", $id)->with('transmissor')->first();
     }
     public function createMessage(Request $request)
     {

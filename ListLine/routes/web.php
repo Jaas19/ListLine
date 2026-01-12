@@ -26,9 +26,9 @@ Route::post('/total/store', [TotalController::class, "store"])->name('total.stor
 
 // Messages
 
-Route::get('message', [MessageController::class, 'index'])->name('message.index');
 Route::get('message/create', [MessageController::class, 'create'])->name('message.create');
 Route::post('message/store', [MessageController::class, 'store'])->name('message.store');
+Route::get('message/{id}', [MessageController::class, 'index'])->name('message.index');
 
 // Generic
 
