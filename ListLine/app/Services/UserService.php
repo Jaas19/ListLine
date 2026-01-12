@@ -26,6 +26,10 @@ class UserService implements UserServiceInterface{
         return User::all();
     }
 
+    public function getUsersId(){
+        return User::where('status', '1')->pluck('id')->toArray();
+    }
+
     public function basicUsersListing(){
         return User::where("role", "user")->get(["name", "id"]);
     }

@@ -31,9 +31,16 @@ class TotalController extends Controller
         $this->userService = $userService;
     }
 
-    public function pdf(){
+    public function pdf(Request $request){
+        $totals = $this->totalService->reportTotals($request);
+        $users = $request -> users ?? $this -> userService->basicUsersListing();
+        $programs = $request -> programs ?? $this -> programService->listActivePrograms();
+        $types = $request -> programs ?? $this -> totalTypeService->listActiveTotalTypes();
         return Pdf::loadView("total.pdf", [
-            'totals' => []
+            'totals' => $totals,
+            'users' => $users,
+            'programs' => $programs,
+            'types' => $types
         ])->stream();
     }
 
