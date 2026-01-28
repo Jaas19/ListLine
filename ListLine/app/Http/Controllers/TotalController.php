@@ -56,10 +56,10 @@ class TotalController extends Controller
         $messages = $this->messageService->listMessages();
         $admin = Auth::user()->role == "admin";
         $user = Auth::user();
-        $programs = $this->programService->listPrograms();
-        $types = $this->totalTypeService->listTotalTypes();
+        $programs = $this->programService->listActivePrograms();
+        $types = $this->totalTypeService->listActiveTotalTypes();
         $users = $this->userService->basicUsersListing();
-        return view("total.create", compact("admin", "user", "messages", "users", "programs", "types"));
+        return view("total.create", compact("users", "programs", "types"));
     }
 
     public function store(Request $request){

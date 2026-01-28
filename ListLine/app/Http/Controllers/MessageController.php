@@ -16,22 +16,12 @@ class MessageController extends Controller{
         $this->userService = $userService;
     }
     public function index(Request $request){
-        $user = Auth::user();
         $message = $this->messageService->getMessage($request->id);
-        if($message && Auth::id() == $message->receiver_id){
-            $messages = $this->messageService->listMessages();
-            $admin = $user->role == "admin";
-            return view('message.index', compact("user", "messages", "message", "admin"));
-        } else {
-            return redirect("/", );
-        }
+        return view('message.index', compact("message"));
     }
     public function create(){
         $users = $this->userService->listUsers(Auth::id());
-        $user = Auth::user();
-        $admin = $user->role == "admin";
-        $messages = $this->messageService->listMessages();
-        return view('message.create', compact("users", "user", "admin", "messages"));
+        return view('message.create', compact("users"));
     }
 
     public function store(Request $request){

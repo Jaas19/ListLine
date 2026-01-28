@@ -16,7 +16,7 @@ class ViewController extends Controller
         if(Auth::check()){
             $admin = Auth::user()->role == "admin";
             $user = Auth::user();
-            return view("$view.index", compact("admin", "user"));
+            return view("$view.index");
         } else {
             return redirect()->route('auth.login');
         }
@@ -31,7 +31,7 @@ class ViewController extends Controller
     } else {
         $admin = Auth::user()->role == "admin";
         $user = Auth::user();
-        return view("$view.$subview", compact("admin", "user"));
+        return view("$view.$subview");
     }
 
     /*

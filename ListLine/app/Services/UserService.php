@@ -31,7 +31,7 @@ class UserService implements UserServiceInterface{
     }
 
     public function basicUsersListing(){
-        return User::where("role", "user")->get(["name", "id"]);
+        return User::where("role", "user")->where("status", "1")->get(["name", "id"]);
     }
 
     public function registerUser($data){

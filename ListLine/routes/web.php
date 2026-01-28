@@ -5,8 +5,9 @@ use Illuminate\Auth\Middleware\Authenticate;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ViewController;
 use App\Http\Controllers\TotalController;
+use App\Http\Controllers\TotalTypeController;
+use App\Http\Controllers\ProgramController;
 
 // Authentication
 
@@ -14,26 +15,49 @@ Route::get('/', [AuthController::class, "index"])->name('auth.index');
 
 Route::post('/', [AuthController::class, "login"])->name('auth.login');
 
-Route::get('/logout', [AuthController::class, "logout"])->name('auth.logout');
+Route::middleware(['auth'])->group(function (){
 
-Route::post('/user/create', [AuthController::class, "store"])->name("user.store");
+    Route::get('/logout', [AuthController::class, "logout"])->name('auth.logout');
 
-// Totals
+    Route::post('/user/create', [AuthController::class, "store"])->name("user.store");
 
-Route::get('/total/pdf', [TotalController::class, "pdf"])->name('total.pdf');
-Route::get('/total/create', [TotalController::class, "create"])->name('total.create');
-Route::post('/total/store', [TotalController::class, "store"])->name('total.store');
+    // Totals
 
-// Messages
+    Route::get('/total/pdf', [TotalController::class, "pdf"])->name('total.pdf');
+    Route::get('/total/create', [TotalController::class, "create"])->name('total.create');
+    Route::post('/total/store', [TotalController::class, "store"])->name('total.store');
 
-Route::get('message/create', [MessageController::class, 'create'])->name('message.create');
-Route::post('message/store', [MessageController::class, 'store'])->name('message.store');
-Route::get('message/{id}', [MessageController::class, 'index'])->name('message.index');
+    // Messages
 
-// Generic
+    Route::get('message/create', [MessageController::class, 'create'])->name('message.create');
+    Route::post('message/store', [MessageController::class, 'store'])->name('message.store');
+    Route::get('message/{id}', [MessageController::class, 'index'])->name('message.index');
 
-Route::get('{view}', [ViewController::class, "handleView"]);
-Route::get('{view}/{subview}', [ViewController::class, "handleSpecificView"]);
+    // Programs
+
+    Route::get('program', [ProgramController::class, 'index'])->name('program.index');
+
+    // TotalTypes
+
+    Route::get('total-type', [TotalTypeController::class, 'index'])->name('total_type.index');
+});
+
+// Admin views
+
+Route::middleware(['auth', 'isAdmin'])->group(function (){
+    // Programs
+    Route::get('program/create', [ProgramController::class, 'create'])->name('program.create');
+    Route::get('program/{program}/edit', [ProgramController::class, 'edit'])->name('program.edit');
+    Route::patch('program/{program}/update', [ProgramController::class, 'update'])->name('program.update');
+    Route::post('program/store', [ProgramController::class, 'store'])->name('program.store');
+
+    // TotalTypes
+
+    Route::get('total-type/create', [TotalTypeController::class, 'create'])->name('total_type.create');
+    Route::get('total-type/{totalType}/edit', [TotalTypeController::class, 'edit'])->name('total_type.edit');
+    Route::patch('total-type/{totalType}/update', [TotalTypeController::class, 'update'])->name('total_type.update');
+    Route::post('total-type/store', [TotalTypeController::class, 'store'])->name('total_type.store');
+});
 
 
 
