@@ -9,5 +9,6 @@ class TotalType extends Model
     protected $fillable = [
         'name',
         'status',
+        'description',
     ];
 }

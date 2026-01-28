@@ -8,28 +8,27 @@
             <div class="center">
                 <div class="bg py-6 px-10 flexCenter rounded-md">
 
-                    <form action="{{ route("program.store") }}" method="POST" class="flex flex-col gap-5">
+                    <form action="{{ route("program.update", $program->id) }}" method="POST" class="flex flex-col gap-5">
                         @csrf
+                        @method("PATCH")
                         <h3 class="color2 font-bold text-2xl">
-                            Registrando programa
+                            Editando programa
                         </h3>
                         <div>
                             <label for="name" class="color2 font-bold m-0 max-h-min">Nombre del programa</label>
                             <input type="text" name="name" id="name" placeholder="Introducir nombre..."
                             class="rounded-sm p-2 block bg-white color outline-none focus:ring-2 focus:ring-red-500"
-                            value="{{ old("name") }}"
-                            required>
+                            value="{{ old("name", $program->name) }}">
                         </div>
                         <div>
                             <label for="status" class="color2 font-bold m-0 max-h-min">Estado</label>
-                            <select name="status" id="status" required
-                            class="rounded-sm py-2 color2 block bg-white text-[#AF1130] px-2 outline-none focus:ring-2 focus:ring-red-500">
-                                <option value="" disabled {{ is_null(old('status')) ? 'selected' : '' }}>Seleccione</option>
-                                <option value="1" {{ old('status') === 1 ? 'selected' : '' }}>Activo</option>
-                                <option value="0" {{ old('status') === 0 ? 'selected' : '' }}>Inactivo</option>
+                            <select name="status" id="status" class="rounded-sm py-2 color2 block bg-white text-[#AF1130] px-2 outline-none focus:ring-2 focus:ring-red-500">
+                                <option value="" disabled>Seleccione</option>
+                                <option value="1" {{ old('status', $program->status) === 1 ? 'selected' : '' }}>Activo</option>
+                                <option value="0" {{ old('status', $program->status) === 0 ? 'selected' : '' }}>Inactivo</option>
                             </select>
                         </div>
-                        <button type="submit" class="bg-white py-2 color rounded-sm cursor-pointer hover:brightness-90 mt-3 outline-none focus:ring-2 focus:ring-red-500">Registrar programa</button>
+                        <button type="submit" class="bg-white py-2 color rounded-sm cursor-pointer hover:brightness-90 mt-3 outline-none focus:ring-2 focus:ring-red-500">Actualizar programa</button>
                     </form>
                 </div>
             </div>

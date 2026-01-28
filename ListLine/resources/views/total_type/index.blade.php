@@ -24,18 +24,18 @@
                                 <tr class="border-b-1 border-[#AF1130]">
                                     <td class="sticky left-0 z-10 py-2 px-5">{{ $totalType->name }}</td>
                                     <td class="font-normal py-2 px-5 max-w-3xs truncate {{ $totalType->description ? 'cursor-help underline' : 'cursor-default' }}" title="{{ $totalType->description }}">{{ $totalType->description ?: '-' }}</td>
-                                    <td class="py-2 px-5">Activo</td>
+                                    <td data-id="{{ $totalType->id }}" class="status-field py-2 px-5 text-green-500">Activo</td>
                                     <td class="p-0 hover:brightness-90"><a href="{{ route("total_type.edit", $totalType->id) }}" class="py-2 px-5 cursor-pointer block">Editar</a></td>
-                                    <td class="py-2 px-5 cursor-pointer hover:brightness-90">Suspender</td>
+                                    <td class="toggle-status-button py-2 px-5 cursor-pointer hover:brightness-90" data-status="0" data-id="{{ $totalType->id }}">Suspender</td>
                                 </tr>
                             @endforeach
                             @foreach ($inactiveTotalTypes as $totalType)
                                 <tr>
-                                    <td class="py-2 px-5">{{ $totalType->name }}</td>
-                                    <td class="font-normal py-2 px-5 max-w-3xs truncate underline cursor-help" title="{{ $totalType->description }}">{{ $totalType->description }}</td>
-                                    <td class="py-2 px-5">Suspendido</td>
+                                    <td class="sticky left-0 z-10 py-2 px-5">{{ $totalType->name }}</td>
+                                    <td class="font-normal py-2 px-5 max-w-3xs truncate {{ $totalType->description ? 'cursor-help underline' : 'cursor-default' }}" title="{{ $totalType->description }}">{{ $totalType->description ?: '-' }}</td>
+                                    <td data-id="{{ $totalType->id }}" class="status-field py-2 px-5">Suspendido</td>
                                     <td class="p-0 hover:brightness-90"><a href="{{ route("total_type.edit", $totalType->id) }}" class="py-2 px-5 cursor-pointer block">Editar</a></td>
-                                    <td class="py-2 px-5 cursor-pointer hover:brightness-90">Habilitar</td>
+                                    <td class="toggle-status-button py-2 px-5 cursor-pointer hover:brightness-90" data-status="1" data-id="{{ $totalType->id }}">Habilitar</td>
                                 </tr>
                             @endforeach
                                 <tr>
@@ -51,4 +51,7 @@
         </div>
         </div>
     </div>
+    <x-slot name="script">
+        js/total-type.js
+    </x-slot>
 </x-main-layout>

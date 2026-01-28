@@ -25,7 +25,7 @@ class TotalTypeController extends Controller
     }
 
     public function edit(TotalType $totalType) {
-        return view("total_type.update", compact("totalType"));
+        return view("total_type.edit", compact("totalType"));
     }
 
     public function store(Request $request) {
@@ -53,6 +53,29 @@ class TotalTypeController extends Controller
             return redirect()->route("total_type.index")->with("success", "Tipo de dato actualizado.");
         } catch (\Exception $e) {
             return back()->withInput()->with("error", "Hubo un error, intentelo más tarde.");
+        }
+    }
+
+    public function status(Request $request, TotalType $totalType) {
+        $validations = [
+            'status' => 'required|in:1,0',
+        ];
+        $validatedData = $request->validate($validations, $this->messages);
+        try {
+            $totalType->update($validatedData);
+            $status = $request->status == 1 ? 'Activo' : 'Suspendido';
+            return response()->json([
+                'success' => true,
+                'message' => 'Estado actualizado correctamente',
+                'status' => $status,
+                'raw_status' => $request->status
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar el estado',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 }

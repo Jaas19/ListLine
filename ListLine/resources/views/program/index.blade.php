@@ -21,18 +21,18 @@
                         <tbody class="text-center font-bold cursor-default">
                             @foreach ($activePrograms as $program)
                                 <tr class="border-b-1 border-[#AF1130]">
-                                    <td class="sticky left-0 py-2 px-5">{{ $program->name }}</td>
-                                    <td class="py-2 px-5">Activo</td>
+                                    <td class="sticky left-0 z-10 py-2 px-5">{{ $program->name }}</td>
+                                    <td data-id="{{ $program->id }}" class="status-field py-2 px-5 text-green-500">Activo</td>
                                     <td class="p-0 hover:brightness-90"><a href="{{ route("program.edit", $program->id) }}" class="py-2 px-5 cursor-pointer block">Editar</a></td>
-                                    <td class="py-2 px-5 cursor-pointer hover:brightness-90">Suspender</td>
+                                    <td class="toggle-status-button py-2 px-5 cursor-pointer hover:brightness-90" data-status="0" data-id="{{ $program->id }}">Suspender</td>
                                 </tr>
                             @endforeach
                             @foreach ($inactivePrograms as $program)
-                                <tr>
-                                    <td class="py-2 px-5">{{ $program->name }}</td>
-                                    <td class="py-2 px-5">Suspendido</td>
+                                <tr class="border-b-1 border-[#AF1130]">
+                                    <td class="sticky left-0 z-10 py-2 px-5">{{ $program->name }}</td>
+                                    <td data-id="{{ $program->id }}" class="status-field py-2 px-5">Suspendido</td>
                                     <td class="p-0 hover:brightness-90"><a href="{{ route("program.edit", $program->id) }}" class="py-2 px-5 cursor-pointer block">Editar</a></td>
-                                    <td class="py-2 px-5 cursor-pointer hover:brightness-90">Habilitar</td>
+                                    <td class="toggle-status-button py-2 px-5 cursor-pointer hover:brightness-90" data-status="1" data-id="{{ $program->id }}">Habilitar</td>
                                 </tr>
                             @endforeach
                                 <tr>
@@ -47,4 +47,7 @@
         </div>
         </div>
     </div>
+    <x-slot name="script">
+        js/program.js
+    </x-slot>
 </x-main-layout>

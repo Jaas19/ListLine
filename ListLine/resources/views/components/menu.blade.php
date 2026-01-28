@@ -1,11 +1,11 @@
 @props(['admin' => false])
 
-<nav id="menu" class="menu hidden z-10 fixed">
+<nav id="menu" class="menu hidden z-20 fixed">
     <div id="closeMenuButton" class="closeMessageBoxButton color2">X</div>
     <img src="{{asset( 'images/ListLineClean.png' )}}" class="profilePicture"></img>
     <a href="/" class="menuOption flex items-center justify-center">Dashboard</a>
     @if ($admin)
-        <a href={{ route("total_type.index") }} class="menuOption flex items-center justify-center">Listar datos</a>
+        <a href={{ route("total_type.index") }} class="menuOption flex items-center justify-center">Editar tabla</a>
         <a href={{ route("program.index") }} class="menuOption flex items-center justify-center">Ver programas</a>
     @endif
     <a href="{{ url('total/pdf') }}" class="menuOption flex items-center justify-center" target="blank">Generar reporte</a>

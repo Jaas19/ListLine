@@ -9,7 +9,9 @@ class ProgramController extends Controller
     protected $messages = [
         "name.required" => "Por favor, introduzca el nombre del programa.",
         "name.max" => "El nombre del programa es muy largo.",
-        "name.string" => "El nombre del programa no es válido."
+        "name.string" => "El nombre del programa no es válido.",
+        "status.in" => "El estado no es válido.",
+        "status.required" => "El estado es obligatorio",
     ];
 
     public function index() {
@@ -23,7 +25,7 @@ class ProgramController extends Controller
     }
 
     public function edit(Program $program) {
-        return view("program.update", compact("program"));
+        return view("program.edit", compact("program"));
     }
 
     public function store(Request $request) {
@@ -49,6 +51,29 @@ class ProgramController extends Controller
             return redirect()->route("program.index")->with("success", "Programa actualizado.");
         } catch (\Exception $e) {
             return back()->withInput()->with("error", "Hubo un error, intentelo más tarde.");
+        }
+    }
+
+    public function status(Request $request, Program $program) {
+        $validations = [
+            'status' => 'required|in:1,0',
+        ];
+        $validatedData = $request->validate($validations, $this->messages);
+        try {
+            $program->update($validatedData);
+            $status = $request->status == 1 ? 'Activo' : 'Suspendido';
+            return response()->json([
+                'success' => true,
+                'message' => 'Estado actualizado correctamente',
+                'status' => $status,
+                'raw_status' => $request->status
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar el estado',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 }

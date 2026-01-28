@@ -21,6 +21,5 @@
             <button class="button">Iniciar Sesión</button>
         </form>
     </div>
-    <script src="./js/validation.js"></script>
 </x-main-layout>
 
