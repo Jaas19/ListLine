@@ -17,13 +17,15 @@ Route::post('/', [AuthController::class, "login"])->name('auth.login');
 
 Route::middleware(['auth'])->group(function (){
 
+    Route::get('/report/index', [TotalController::class, "index"])->name('report.index');
+    Route::post('/report/pdf', [TotalController::class, "pdf"])->name('report.pdf');
+
     Route::get('/logout', [AuthController::class, "logout"])->name('auth.logout');
 
     Route::post('/user/create', [AuthController::class, "store"])->name("user.store");
 
     // Totals
 
-    Route::get('/total/pdf', [TotalController::class, "pdf"])->name('total.pdf');
     Route::get('/total/create', [TotalController::class, "create"])->name('total.create');
     Route::post('/total/store', [TotalController::class, "store"])->name('total.store');
 
@@ -45,6 +47,10 @@ Route::middleware(['auth'])->group(function (){
 // Admin views
 
 Route::middleware(['auth', 'isAdmin'])->group(function (){
+    // Register user
+
+    Route::get('user/create', [UserController::class, 'create'])->name('user.create');
+
     // Programs
     Route::get('program/create', [ProgramController::class, 'create'])->name('program.create');
     Route::get('program/{program}/edit', [ProgramController::class, 'edit'])->name('program.edit');

@@ -6,6 +6,7 @@ use App\Services\TotalServiceInterface;
 use App\Services\AuthService;
 use App\Models\Total;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class TotalService implements TotalServiceInterface {
@@ -90,5 +91,79 @@ class TotalService implements TotalServiceInterface {
 
         return $totals;
         }
+
+
+    public function getPdfInfo($data){
+        $dates = $this->interpretPeriod($data['period'], $data);
+
+        $startDate = $dates['start'];
+        $endDate = $dates['end'];
+
+        $query = Total::query()
+            ->with('user', 'totalType', 'program')
+            ->whereHas('totalType', fn($q) => $this->filterActive($q))
+            ->whereHas('program', fn($q) => $this->filterActive($q));
+
+        $users = $data["users"] ?? null;
+
+
+        if($startDate && $endDate) {
+            $query->whereBetween('day', [$startDate, $endDate]);
+        }
+
+        $query->when($users, [$this, 'filterUsers']);
+
+        return $query->get();
     }
+
+    public function filterUsers($query, $users){
+        $query->whereIn("user_id", $users);
+    }
+
+    public function filterActive($query){
+        $query->where("status", 1);
+    }
+
+    public function interpretPeriod($period, $data){
+        $now = Carbon::now();
+
+        switch ($period) {
+            case 'daily':
+                return [
+                    'start' => $now->copy()->startOfDay(),
+                    'end'   => $now->copy()->endOfDay(),
+            ];
+            case 'weekly':
+                return [
+                    'start' => $now->copy()->startOfWeek(),
+                    'end'   => $now->copy()->endOfWeek(),
+                ];
+            case 'monthly':
+                return [
+                    'start' => $now->copy()->startOfMonth(),
+                    'end'   => $now->copy()->endOfMonth(),
+                ];
+            case 'annually':
+                return [
+                    'start' => $now->copy()->startOfYear(),
+                    'end'   => $now->copy()->endOfYear(),
+                ];
+            case 'custom':
+                return [
+                    'start' => Carbon::parse($data["start_date"])->startOfDay(),
+                    'end'   => Carbon::parse($data["end_date"])->endOfDay(),
+                ];
+            case 'general':
+                return [
+                    'start' => null,
+                    'end' => null,
+                ];
+            default:
+                return [
+                    'start' => $now->copy()->startOfDay(),
+                    'end'   => $now->copy()->endOfDay(),
+                ];
+        }
+    }
+}
 

@@ -32,7 +32,7 @@
                     @php
                         $firstLoop = true
                     @endphp
-                    <!-- Iteration for each tipo of data -->
+                    <!-- Iteration for each tipe of data -->
                     @foreach ($types as $type)
                         <tr>
                             <th>{{ $type->name }}</th>

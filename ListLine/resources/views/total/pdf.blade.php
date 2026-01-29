@@ -3,33 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte</title>
+    <style>
+        @page {
+            margin: 2.5cm;
+        }
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+        footer {
+            position: fixed;
+            bottom: -1cm;
+        }
+    </style>
 </head>
 <body>
-    <div style="text-align: center">
-        <img src="images/ListLineClean.png" alt="" style="width: 100px; margin: 0 auto;">
+    <footer>
+        Fecha: {{ now() }} <br>
+        Emitido por: {{ $user->name }}
+    </footer>
+    <table style="width: 100%; border: none; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <td style="width: 50%; text-align: left; border: none; vertical-align: middle;">
+                <img src="images/ListLineClean.png" alt="" style="width: 100px">
+            </td>
+
+            <td style="width: 40%; text-align: right; border: none; vertical-align: middle;">
+                <strong>Centro de Apuestas el Manantial</strong><br>
+                RIF: J-044756446 <br>
+                Teléfono: 0412-6822307 <br>
+                <em>@hotmail.com</em>
+            </td>
+            <td style="width: 100px; text-align: right; border: none; vertical-align: middle;">
+                <img src="images/ListLineClean.png" alt="" style="width: 100px">
+            </td>
+        </tr>
+    </table>
+
+
+
+    <div style="text-align: center; font-size: 15px; margin-top: 15px; margin-bottom: 5px;">Reporte {{ $period }}
+        @if ($startDate && $endDate)
+                @if ($startDate->format('Y-m-d') != $endDate->format('Y-m-d'))
+                    {{ $startDate->format('d/m/Y') }} - {{ $endDate->format('d/m/Y') }}
+                @else
+                    {{ $startDate->format('d/m/Y') }}
+                @endif
+        @endif
     </div>
-
-    <div style="text-align: center; font-size: 20px; margin-top: 15px; margin-bottom: 5px;">Reporte {{ $date ?? now()->format('d/m/Y') }}</div>
-
-
     @foreach ($users as $list)
         <div style="text-align: center; font-size: 20px; margin-top: 15px; margin-bottom: 5px;">{{ $list->name }}</div>
-        <table style="border-collapse: collapse; margin: 0 auto">
-            <tr style="border: 1px black solid">
-                @foreach ($programs as $program)
-                    <th style="border: 1px black solid; padding-right: 5px; padding-left: 5px;">{{ $program->name }}</th>
-                @endforeach
-            </tr>
-            @foreach ($types as $type)
-                <tr>
-                    @foreach($programs as $program)
-                        <td style="border: 1px black solid; padding-right: 5px; padding-left: 5px;">{{ $type->name }}: {{ $totals[$list->id][$program->id][$type->id] ?? 0 }}</td>
+
+        <table style="border-collapse: collapse; margin: 0 auto; table-layout: fixed; width: 100%;">
+            <thead>
+                <tr style="border: 1px black solid; background-color: #f0f0f0;">
+                    <th style="border: 1px black solid; padding: 5px; width: 15%;"></th>
+                    @foreach ($programs as $program)
+                        <th style="border: 1px black solid; padding: 5px; word-wrap: break-word;">{{ $program->name }}</th>
                     @endforeach
-                 </tr>
-            @endforeach
+
+                    <th style="border: 1px black solid; padding: 5px;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($types as $type)
+                    <tr>
+                        @php $total = 0; @endphp
+
+                        <td style="border: 1px black solid; padding: 5px; font-weight: bold; word-wrap: break-word;">{{ $type->name }}</td>
+
+                        @foreach($programs as $program)
+                            @php
+                                $value = $totals[$list->id][$program->id][$type->id] ?? 0;
+                                $total += $value;
+                            @endphp
+
+                            <td style="border: 1px black solid; padding: 5px; text-align: center;">
+                                {{ $value }}
+                            </td>
+                        @endforeach
+
+                        <td style="border: 1px black solid; padding: 5px; text-align: center; font-weight: bold; background-color: #f9f9f9;">
+                            {{ $total }}
+                        </td>
+                     </tr>
+                @endforeach
+            </tbody>
         </table>
+        <br>
     @endforeach
 </body>
 </html>
