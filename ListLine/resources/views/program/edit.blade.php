@@ -21,6 +21,12 @@
                             value="{{ old("name", $program->name) }}">
                         </div>
                         <div>
+                            <label for="commission" class="color2 font-bold">Comisión</label>
+                            <input type="text" step="1" inputmode="decimal" name="commission" id="commission" placeholder="Introduzca la comisión..."
+                            class="rounded-sm py-2 color2 block bg-white text-[#AF1130] px-2 outline-none focus:ring-2 focus:ring-red-500 percentage-input"
+                            value="{{ old("commission", round($program->commission * 100, 2) . "%") }}">
+                        </div>
+                        <div>
                             <label for="status" class="color2 font-bold m-0 max-h-min">Estado</label>
                             <select name="status" id="status" class="rounded-sm py-2 color2 block bg-white text-[#AF1130] px-2 outline-none focus:ring-2 focus:ring-red-500">
                                 <option value="" disabled>Seleccione</option>
@@ -35,4 +41,7 @@
         </div>
         </div>
     </div>
+    <x-slot name="script">
+        js/percentage.js
+    </x-slot>
 </x-main-layout>

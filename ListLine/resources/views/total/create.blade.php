@@ -20,7 +20,7 @@
                 <tr>
                     <th>Tipo</th>
                     @foreach ($programs as $program)
-                        <th>{{ $program->name }}</th>
+                        <th title="Comisión: {{ $program->commission }}" class="cursor-help">{{ $program->name }}</th>
                     @endforeach
                     <th>Total</th>
                     <th>Lista</th>
@@ -35,15 +35,32 @@
                     <!-- Iteration for each tipe of data -->
                     @foreach ($types as $type)
                         <tr>
-                            <th>{{ $type->name }}</th>
+                            <th title="{{ $type->description }}" class="cursor-help">{{ $type->name }}</th>
                             <!-- Iteration for each program -->
                                 @foreach ($programs as $program)
                                     <td>
-                                        <input type="text" class="tableInput" maxlength="5"
-                                        name="total[{{ $list->id }}][{{ $program->id }}][{{ $type->id }}]">
+                                        <input type="text"
+                                        {{ $type->type == "balance" ? "readonly" : "" }}
+                                        {{ $type->type == "commission" ? "readonly data-commission=" . $program->commission : "" }}
+
+                                        class="tableInput {{ $type->type == "balance" ? "balance-input" : "" }}
+                                        {{ $type->type == "sale" ? "sale-input" : "" }}
+                                        {{ $type->type == "commission" ? "commission-input" : "" }}
+                                        {{ $type->type == "payout" ? "payout-input" : "" }}"
+                                        maxlength="9"
+                                        data-total-type="[{{ $list->id }},{{ $type->id }}]"
+                                        data-total="[{{ $list->id }},{{ $program->id }}]"
+                                        name="total[{{ $list->id }}][{{ $program->id }}][{{ $type->id }}]"
+                                        value="{{ old('total.' . $list->id . '.' . $program->id . '.' . $type->id) }}">
                                     </td>
                                 @endforeach
-                            <td><input class="tableInput" type="text" maxlength="5"></td>
+                            <td><input readonly class="tableInput total-input
+                                            {{ $type->type == "balance" ? "balance-input" : "" }}
+                                            {{ $type->type == "sale" ? "sale-input" : "" }}
+                                            {{ $type->type == "commission" ? "commission-input" : "" }}
+                                            {{ $type->type == "payout" ? "payout-input" : "" }}"
+                                            type="text" maxlength="5" data-total-type="[{{ $list->id }},{{ $type->id }}]" data-total="total-{{ $list->id }}">
+                                        </td>
                             @if ($firstLoop)
                                 <th rowspan="{{ count($types) }}">{{ $list->name }}</th>
                                 @php
@@ -71,4 +88,7 @@
         <x-messages :messages="$messages"></x-messages>
         </div>
     </div>
+    <x-slot name="script">
+        js/total.js
+    </x-slot>
 </x-main-layout>

@@ -75,7 +75,7 @@ class TotalController extends Controller
             ], $this->messages
         );
 
-        //try{
+        try{
             $data = $this->totalService->getPdfInfo($validatedData);
 
             $totals = [];
@@ -118,9 +118,9 @@ class TotalController extends Controller
                 'startDate' => $startDate,
                 'endDate' => $endDate,
             ])->stream();
-        /*} catch(\Exception $e){
+        } catch(\Exception $e){
             return back()->with("error", "Hubo un error, intente de nuevo más tarde.")->withInput();
-        }*/
+        }
     }
 
     public function pdf2(Request $request){
@@ -145,9 +145,6 @@ class TotalController extends Controller
     }
 
     public function create(){
-        $messages = $this->messageService->listMessages();
-        $admin = Auth::user()->role == "admin";
-        $user = Auth::user();
         $programs = $this->programService->listActivePrograms();
         $types = $this->totalTypeService->listActiveTotalTypes();
         $users = $this->userService->basicUsersListing();

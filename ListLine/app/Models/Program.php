@@ -8,6 +8,7 @@ class Program extends Model
 {
     protected $fillable = [
         'name',
-        'status'
+        'status',
+        'commission',
     ];
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProgramController extends Controller
 {
@@ -29,12 +30,22 @@ class ProgramController extends Controller
     }
 
     public function store(Request $request) {
+        $data = $request->all();
+        if($request->has('commission')){
+            $data['commission'] = floatval(str_replace('%', '', $request->commission));
+            $data['commission'] = $data['commission'] / 100;
+        }
         $validations = [
-            'name' => 'required|max:255|string'
+            'name' => 'required|max:255|string',
+            'status' => 'required|in:1,0',
+            'commission' => 'required|numeric|between:0.01,100',
         ];
-        $validatedData = $request->validate($validations, $this->messages);
+        $validation = Validator::make($data, $validations, $this->messages);
+        if($validation->fails()){
+            return back()->withErrors($validation)->withInput();
+        }
         try {
-            Program::create($validatedData);
+            Program::create($data);
             return redirect()->route("program.index")->with("success", "Programa creado.");
         } catch (\Exception $e) {
             return back()->withInput()->with("error", "Hubo un error, intentelo más tarde.");
@@ -42,15 +53,25 @@ class ProgramController extends Controller
     }
 
     public function update(Request $request, Program $program) {
+        $data = $request->all();
+        if($request->has('commission')){
+            $data['commission'] = floatval(str_replace('%', '', $request->commission));
+            $data['commission'] = $data['commission'] / 100;
+        }
         $validations = [
-            'name' => 'required|max:255|string'
+            'name' => 'required|max:255|string',
+            'status' => 'required|in:1,0',
+            'commission' => 'required|numeric|between:0.01,100',
         ];
-        $validatedData = $request->validate($validations, $this->messages);
+        $validation = Validator::make($data, $validations, $this->messages);
+        if($validation->fails()){
+            return back()->withErrors($validation)->withInput();
+        }
         try {
-            $program->update($validatedData);
+            $program->update($data);
             return redirect()->route("program.index")->with("success", "Programa actualizado.");
         } catch (\Exception $e) {
-            return back()->withInput()->with("error", "Hubo un error, intentelo más tarde.");
+            return back()->withInput()->with("error", "Hubo un error, inténtelo más tarde.");
         }
     }
 

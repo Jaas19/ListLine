@@ -30,15 +30,13 @@
                 <img src="images/ListLineClean.png" alt="" style="width: 100px">
             </td>
 
-            <td style="width: 40%; text-align: right; border: none; vertical-align: middle;">
+            <td style="width: 50%; text-align: right; border: none; vertical-align: middle;">
                 <strong>Centro de Apuestas el Manantial</strong><br>
-                RIF: J-044756446 <br>
-                Teléfono: 0412-6822307 <br>
+                RIF: V-07008500-0 <br>
+                Teléfono: 0245-5520573 <br>
                 <em>@hotmail.com</em>
             </td>
-            <td style="width: 100px; text-align: right; border: none; vertical-align: middle;">
-                <img src="images/ListLineClean.png" alt="" style="width: 100px">
-            </td>
+
         </tr>
     </table>
 
