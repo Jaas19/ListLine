@@ -34,7 +34,7 @@
                 <strong>Centro de Apuestas el Manantial</strong><br>
                 RIF: V-07008500-0 <br>
                 Teléfono: 0245-5520573 <br>
-                <em>@hotmail.com</em>
+                <em>cdaelmanantial@gmail.com</em>
             </td>
 
         </tr>

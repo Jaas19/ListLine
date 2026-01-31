@@ -22,10 +22,7 @@ class AuthController extends Controller
         if(!$this->userService->checkIfAdminExists()){
             return view('auth.register');
         } elseif (Auth::id()) {
-            $user = Auth::user();
-            $admin = $user->role == "admin";
-            $messages = $this->messageService->listMessages();
-            return view('dashboard.index', compact('user', 'admin', 'messages'));
+            return view('dashboard.index');
         } else {
             if(isset($response)){
                 return view('auth.login', compact('response'));
