@@ -11,8 +11,9 @@
     <a href="{{ route("report.index") }}" class="menuOption flex items-center justify-center">Generar reporte</a>
     @if ($admin)
         <a href="{{ url('total/create') }}" class="menuOption flex items-center justify-center">Registrar ventas</a>
-        <a href="{{ url('user/create') }}" class="menuOption flex items-center justify-center">Registrar usuario</a>
+        <a href="{{ url('user/index') }}" class="menuOption flex items-center justify-center">Gestionar usuarios</a>
     @endif
     <a href="{{ url('message/create')}}" class="menuOption flex items-center justify-center">Enviar mensaje</a>
+    <a href="{{ $user->securityQuestion ? route("security_question.edit", $user->securityQuestion->id) : route("security_question.create")}}" class="menuOption flex items-center justify-center">Pregunta de seguridad</a>
     <a href={{ route("auth.logout") }} class="menuOption flex items-center justify-center">Cerrar sesión</a>
 </nav>

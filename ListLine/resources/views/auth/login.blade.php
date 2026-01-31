@@ -19,6 +19,7 @@
             <input class="formInput" type="mail" name="email" id="email" placeholder="Correo">
             <input class="formInput" type="password" name="password" id="password" placeholder="Contraseña">
             <button class="button">Iniciar Sesión</button>
+            <a href="{{ route("security_question.recover") }}" class="color underline -mt-4">¿Olvidó su contraseña?</a>
         </form>
     </div>
 </x-main-layout>
